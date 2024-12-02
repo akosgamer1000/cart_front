@@ -4,13 +4,19 @@ import { createRoot } from 'react-dom/client'
 import {createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './pageis/home';
+import Prodpage from './pageis/product';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: ;
+    element: <Home></Home>
   },
+  {
+    path: "/prodlist",
+    element:<Prodpage></Prodpage>
+  }
 
 ]);
 
