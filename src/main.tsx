@@ -1,28 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import {createBrowserRouter, RouterProvider } from 'react-router-dom'
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './pageis/home';
-import Prodpage from './pageis/product';
+
+import App from './App';
 
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home></Home>
-  },
-  {
-    path: "/prodlist",
-    element:<Prodpage></Prodpage>
-  }
 
-]);
+
 
 
 createRoot(document.getElementById('root')!).render(
+  
   <React.StrictMode>
-    <RouterProvider router={router} />
+
+    <App></App>
+
+
   </React.StrictMode>
 )
