@@ -12,6 +12,7 @@ import { Profiler } from 'react';
 import { Profile } from './pageis/profile';
 import { Logout } from './pageis/logout';
 import { UserProvider } from './context/Usercontext';
+import { UserDataProvider } from './context/Userdatacontex';
 
 
 function App() {
@@ -49,9 +50,12 @@ function App() {
   return (
     <CartProvider>
       <UserProvider>
-           <RouterProvider router={router} />
+        <UserDataProvider>
+          <RouterProvider router={router} />
+        </UserDataProvider>
+
       </UserProvider>
-    
+
     </CartProvider>
   );
 }

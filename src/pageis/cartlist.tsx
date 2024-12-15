@@ -5,7 +5,7 @@ import Card from "../componens/card";
 
 
 export function Cartlist() {
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart ,reset} = useCart();
     console.log(cart)
   return (
     <>
@@ -22,12 +22,16 @@ export function Cartlist() {
                 name={product.name} 
                 type={product.type} 
                 price={product.price} 
+                text={"remove from cart"}
                 onClick={() => removeFromCart(product.id)}
               />
             </li>
           ))}
         </ul>
-      )}
+      )
+      
+      }
+      <button    className="btn btn-primary mt-auto" onClick={reset}>dumping</button>
     </>
   );
 }

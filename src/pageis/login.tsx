@@ -3,17 +3,23 @@ import { login } from '../api';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../componens/navbar';
 import { useUser } from '../context/Usercontext';
+import { useUserData } from '../context/Userdatacontex';
 
 export function LoginPage() {
     const { login1 } = useUser();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const{setData}=useUserData()
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         try {
             await login(username, password);
+            setData({
+              name:username,
+              password:password
+            })
             login1(true);
             navigate('/profile');
         } catch (error) {

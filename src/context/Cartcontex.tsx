@@ -7,13 +7,16 @@ export interface CartContextType {
   setCart: Dispatch<SetStateAction<Item[]>>;
   addToCart: (item: Item) => void;
   removeFromCart: (itemId: number) => void;
+  reset:()=>void
 }
 
 export const CartContext = createContext<CartContextType>({
   cart: [],
   setCart: () => {},
   addToCart: () => {},
-  removeFromCart: () => {}
+  removeFromCart: () => {},
+  reset: () => {}
+
 });
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -33,7 +36,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
  
       const newCart = [...prevCart, item];
-      console.log("New cart state:", newCart);
+    
       return newCart;
     });
   };
@@ -41,14 +44,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const removeFromCart = (itemId: number) => {
     setCart((prevCart) => prevCart.filter(item => item.id !== itemId));
   };
+  const reset=()=>{
+    setCart([])
+  } 
 
-
-  React.useEffect(() => {
-    console.log("Current cart state:", cart);
-  }, [cart]);
+ 
 
   return (
-    <CartContext.Provider value={{ cart, setCart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, setCart, addToCart, removeFromCart,reset }}>
       {children}
     </CartContext.Provider>
   );
