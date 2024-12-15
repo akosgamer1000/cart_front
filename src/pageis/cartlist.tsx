@@ -1,28 +1,33 @@
-import { useContext } from "react";
 
-import { context } from "../App";
 import Navbar from "../componens/navbar";
-import product from "./product";
+import { useCart } from "../context/Cartcontex";
 import Card from "../componens/card";
 
+
 export function Cartlist() {
-
-    const { cart, setCart }: CartContextType = useContext(context);
-    console.log(cart);.,
-    return <>
-        <Navbar></Navbar>
-        <h1>termék</h1>
+  const { cart, removeFromCart } = useCart();
+    console.log(cart)
+  return (
+    <>
+      <Navbar />
+      <h1>Cart</h1>
+      {cart.length === 0 ? (
+        <p>Your cart is empty</p>
+      ) : (
         <ul>
-            {
-                cart.map(product => <li key={product.id}>
-                    <Card id={product.id} name={product.name} type={product.type} price={product.price} ></Card>
-
-                </li>
-
-
-                )
-            }
+          {cart.map(product => (
+            <li key={product.id}>
+              <Card 
+                id={product.id} 
+                name={product.name} 
+                type={product.type} 
+                price={product.price} 
+                onClick={() => removeFromCart(product.id)}
+              />
+            </li>
+          ))}
         </ul>
-
+      )}
     </>
+  );
 }

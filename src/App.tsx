@@ -1,42 +1,50 @@
 
+
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css'
+import './App.css';
 import Home from './pageis/home';
 import Prodpage from './pageis/product';
 import { Cartlist } from './pageis/cartlist';
-import React, { createContext, useState } from 'react';
-import item from './componens/aru';
-import { CartContextType } from './componens/cartin';
-export const context = createContext<CartContextType>({
-  cart: [],
-  setCart: ()=>{}
-})
+import { CartProvider } from './context/Cartcontex';
+import { LoginPage } from './pageis/login';
+import { Reg } from './pageis/register';
+import { Profiler } from 'react';
+import { Profile } from './pageis/profile';
+
+
 function App() {
-  const [cart, setCart] = useState<item[]>([])
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home></Home>
+      element: <Home />
     },
     {
       path: "/prodlist",
-      element: <Prodpage></Prodpage>
+      element: <Prodpage />
     },
     {
       path: "/cart",
-      element: <Cartlist></Cartlist>
+      element: <Cartlist />
+    },
+    {
+      path: "/login",
+      element: <LoginPage />
+    },
+    {
+      path: "/Register",
+      element: <Reg />
+    },
+    {
+      path: "/profile",
+      element: <Profile />
     }
-
   ]);
-  return <>
-    <context.Provider value={{ cart, setCart }}>
-      <RouterProvider router={router}></RouterProvider>
-    </context.Provider>
 
-
-  </>
-
-
+  return (
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
+  );
 }
 
-export default App
+export default App;
