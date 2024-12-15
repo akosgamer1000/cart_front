@@ -10,6 +10,8 @@ import { LoginPage } from './pageis/login';
 import { Reg } from './pageis/register';
 import { Profiler } from 'react';
 import { Profile } from './pageis/profile';
+import { Logout } from './pageis/logout';
+import { UserProvider } from './context/Usercontext';
 
 
 function App() {
@@ -37,12 +39,19 @@ function App() {
     {
       path: "/profile",
       element: <Profile />
-    }
+    },
+    {
+      path: "/logout",
+      element: <Logout />
+    },
   ]);
 
   return (
     <CartProvider>
-      <RouterProvider router={router} />
+      <UserProvider>
+           <RouterProvider router={router} />
+      </UserProvider>
+    
     </CartProvider>
   );
 }

@@ -18,7 +18,7 @@ export const CartContext = createContext<CartContextType>({
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<Item[]>([]);
-
+  
   const addToCart = (item: Item) => {
     console.log("Adding to cart:", item);
     
