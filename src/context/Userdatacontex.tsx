@@ -28,79 +28,77 @@ export const UserDataProvider: React.FC<{ children: ReactNode }> = ({ children }
     const setData = (userdata: Fel) => {
         setUser(userdata); 
     };
-    const updateUsername = async (name:string, id:number) => {
+    const updateUsername = async (name: string, id: number) => {
         try {
-          const response = await fetch(`http://localhost:3000/updateUsername/${id}`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              username: name,
-            }),
-          });
-      
-          if (!response.ok) {
+            const response = await fetch(`http://localhost:3000/updateUsername/${id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: name,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error updating username:', errorData.error);
+                return;
+            }
+
+            const data = await response.json();
+            setUser(user ? { ...user, name: name } : null);
+            console.log('Username updated successfully:', data.message);
+        } catch (error) {
+            console.error('Network error updating username:', error);
+        }
+    };
+    const idgetter = async (name: string) => {
+        try {
+            const response = await fetch(`http://localhost:3000/idgetter/${name}`);
             
-            const errorData = await response.json();
-            console.error('Error updating username:', errorData.error);
-            return;
-          }
-      
-          const data = await response.json();
-          console.log('Username updated successfully:', data.message);
-        } catch (error) {
+            if (!response.ok) {
+                console.error(`Error fetching ID`);
+                return;
+            }
         
-          console.error('Network error updating username:', error);
-        }
-      };
-      const idgetter = async (name: string) => {
-        try {
-          const response = await fetch(`http://localhost:3000/idgetter/${name}`);
-          
-          if (!response.ok) {
-            console.error(`Error fetching ID`);
-            return;
-          }
-      
-          const data = await response.json();
-          console.log("Setting ID to:", data.id);
-          setIds(data.id);
+            const data = await response.json();
+            console.log("Setting ID to:", data.id);
+            setIds(data.id);
         } catch (error) {
-          console.error("Error in idgetter:", error);
-          return null;
+            console.error("Error in idgetter:", error);
+            return null;
         }
-      };
-      useEffect(() => {
+    };
+    useEffect(() => {
         console.log('IDs state updated:', ids);
     }, [ids]);
-      const  updatePassord = async (password:string, id:number) => {
+    const updatePassord = async (password: string, id: number) => {
         try {
-          const response = await fetch(`http://localhost:3000/updatePassword/${id}`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              password: password,
-            }),
-          });
-      
-          if (!response.ok) {
-           
-            const errorData = await response.json();
-            console.error('Error updating password:', errorData.error);
-            return;
-          }
-      
-          const data = await response.json();
-          console.log('Password updated successfully:', data.message);
+            const response = await fetch(`http://localhost:3000/updatePassword/${id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    password: password,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error updating password:', errorData.error);
+                return;
+            }
+
+            const data = await response.json();
+            setUser(user ? { ...user, password: password } : null);
+            console.log('Password updated successfully:', data.message);
         } catch (error) {
-          
-          console.error('Network error updating password:', error);
+            console.error('Network error updating password:', error);
         }
-      };
-      
+    };
+    
     return (
         <UserDataContext.Provider value={{ ids,user, setData,updateUsername, updatePassord ,idgetter}}>
             {children}
