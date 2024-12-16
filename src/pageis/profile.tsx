@@ -7,12 +7,13 @@ import { useUserData } from '../context/Userdatacontex';
 export  function Profile() {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  const{user} =useUserData()
+  const{user,ids} =useUserData()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetchProtected();
+        console.log(ids)
         setMessage(response.message);
       } catch (error) {
         setMessage('Unauthorized');
@@ -32,7 +33,7 @@ export  function Profile() {
         <div className="card p-4">
             <img className="card-img-top img-fluid " style={{width:100, height:100}} src="public/letöltés.png" alt="Card image cap"></img>
              <div className="card-body">
-             <h2>Welcome, {user.name}</h2>
+             <h2 >Welcome, {user.name}</h2 >
              <p><strong>Password:</strong> {user.password}</p>
              </div>
             

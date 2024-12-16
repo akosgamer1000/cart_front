@@ -10,13 +10,18 @@ export function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const{setData}=useUserData()
+    const{setData,idgetter,ids}=useUserData()
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         try {
+            
+           await  idgetter(username)
+          
             await login(username, password);
+            console.log(ids)
             setData({
+              id:ids,
               name:username,
               password:password
             })
